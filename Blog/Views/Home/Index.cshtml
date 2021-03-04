@@ -1,0 +1,99 @@
+﻿@model BlogPostsViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> - BlogSite.Web</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" href="/">BlogSite.Web</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/">Home</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" href="/Home/MostRecent">Most Recent</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Home/AddPost">Admin</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <!-- Page Content -->
+            <div class="container">
+
+                <div class="row">
+
+                    <!-- Blog Entries Column -->
+                    <div class="col-md-8">
+
+                        <h1 class="my-4">
+                            My Blog
+                            <small>Everything you need to know...
+                            .</small>
+                        </h1>
+
+                        @foreach (Post p in Model.Posts)
+                        {
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h2 class="card-title">
+                                        <a href="/home/viewpost?id=@p.Id">@p.Title</a>
+                                    </h2>
+                                    <p class="card-text">(@(p.Body.Length < 200 ? p.Body : p.Body.Substring(0, 200))...</p>
+                                    <a href="/home/viewPost?id=@p.Id" class="btn btn-primary">Read More &rarr;</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Posted on @p.DatePosted.ToLongDateString() by
+                                    <a href="#">Elka Rochel Samber</a>
+                                </div>
+                            </div>
+                        }
+
+                        <!-- Pagination -->
+                    <ul class="pagination justify-content-center mb-4">
+                        @if (Model.CurrentPage < Model.TotalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="/home/index?currentPage=@(Model.CurrentPage+1)">&larr; Older</a>
+                            </li>
+                        }
+                        @if (Model.CurrentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="/home/index?currentPage=@(Model.CurrentPage-1)">Newer &rarr;</a>
+                            </li>
+                        }
+                    </ul>
+
+                    </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+        </main>
+    </div>
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js?v=4q1jwFhaPaZgr8WAUSrux6hAuh0XDg9kPS3xIVq36I0"></script>
+
+</body>
+</html>
