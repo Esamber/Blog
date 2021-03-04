@@ -39,6 +39,7 @@ namespace Blog.Controllers
             db.AddPost(post);
             return Redirect("/home/Index");
         }
+
         [HttpPost]
         public IActionResult SubmitComment(Comment comment, int postId)
         {
